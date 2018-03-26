@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>概况</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/style.min.css" rel="stylesheet">
+    <script src="myjs/html5shiv.min.js"></script>
+    <script src="myjs/respond.min.js"></script>
+    <style>.table > tbody > tr > td a {
+        color: #999;
+    }</style>
+    <base target="_blank">
+    <style type="text/css">
+    	.ibox {
+		    clear: both;
+		    margin-bottom: 0px;
+		    margin-top: 0;
+		    margin-right: 0px;
+		    margin-left: 0px;
+		    padding: 8px;
+		}
+		.map-box {
+			background-color:#fff;
+			color:inherit;
+			border-color:#e7eaec;
+			-webkit-border-image:none;
+			-o-border-image:none;
+			border-image:none;
+			border-style:solid solid none;
+			border-width:1px 0;
+			border-radius:0 0 4px 4px;
+			-webkit-box-shadow: #cecfcf 0px 2px 4px;
+		    -moz-box-shadow: #cecfcf 0px 2px 4px;
+		    box-shadow: #cecfcf 0px 2px 4px;
+		}
+        .tableflows {
+            overflow-y: auto;
+            height: 225px;
+        }
+        .headflows {
+        	height: 30px;
+        }
+		.map-content{
+			background-color:#fff;
+			color:inherit;
+			border-color:#e7eaec;
+			border-right: 0px solid #fff !important;
+			-webkit-border-image:none;
+			-o-border-image:none;
+			border-image:none;
+			border-style:solid solid none;
+			border-width:1px 0;
+			border-radius:4px;
+		}
+		.col-2,.col-6{
+ 			float:left; 
+/* 			border: 1px dashed #000 !important; */
+/* 			border-radius: 6px; */
+		}
+		.col-2{width:20%;display: inline-block;min-width:200px}
+		.col-6{width:59%;display: inline-block;min-width:300px}
+		@media (max-width:1100px) {
+			.col-2 {
+				display:none;
+				float:none
+			}
+			.col-6 {
+				width:100%;
+				float:none
+			}
+		}
+		.col-title-l{
+			width:65%;
+			height:30px;
+			background-color: #00CCCC;
+			padding:5px 25px 0px;
+			border-radius: 0 30px 30px 0;
+		}
+		.col-title-r{
+			margin-left: 107px;
+			width:65%;
+			height:30px;
+			background-color: #00CCCC;
+			padding:5px 25px 0px;
+			border-radius: 30px 0 0 30px;
+		}
+		.mapside{
+			overflow-y: auto;
+			height: 300px;
+			min-width: 200px;
+		}
+		.btn-group ul { 
+			width: 210px; 
+		} 
+		.btn-group li { 
+			width: 70px; /*如果显示三列 则width改为70px*/ 
+			float: left; 
+			display: block; 
+		} 
+		td,th{
+			text-align: center;
+		}
+    </style>
+</head>
+<body class="gray-bg" style="margin-top:25px">
+<div class="wrapper animated fadeInRight">
+	<!-- 地图总览 -->
+	<div class="row">
+		<div class="ibox">
+			<div class="ibox-content" style="padding: 5px 0px 0px 5px;border-radius:4px 4px 4px 4px;overflow:hidden">
+				<div class="col-2">
+				  	<div>
+				  		<div class="col-title-l">
+				  			<label style="float: right;color: white;">来源国家Top5</label>
+				  		</div>
+				  		<div class="mapside">
+				  			<table class="table table-stripped toggle-arrow-tiny" data-page-size="8">
+			                    <thead>
+			                    <tr>
+			                        <th>国家</th>
+			                        <th>威胁数量</th>
+			                    </tr>
+			                    </thead>
+			                    <tbody id="mainthreat">
+			                    </tbody>
+			               	</table>
+				  		</div>
+			        </div>
+			        <div>
+				  		<div class="col-title-l">
+				  			<label style="float: right;color: white;">安全评分</label>
+				  		</div>
+				  		<div class="mapside">
+				  			<table class="table table-stripped toggle-arrow-tiny" data-page-size="8">
+			                    <thead>
+			                    <tr>
+			                        <th>节点名</th>
+			                        <th>威胁类型</th>
+			                        <th>IP</th>
+			                    </tr>
+			                    </thead>
+			                    <tbody id="mainthreat">
+			                    </tbody>
+			               	</table>
+				  		</div>
+			        </div>
+				</div>
+				<div class="col-6">
+				   <div>
+				   		<div style="display: flex;justify-content: center;">
+				   			<h2><b>来源示意图</b></h2>
+				   		</div>
+				   		<div class="btn-group" style="float:right;margin-top:-6px;margin-right: 20px;">
+	                        <button  type="button" id="nodecontrol" onclick="nodeSelect()" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" >总览<span class="caret"></span>
+	                        </button>
+	                        <ul id="nodelist" class="dropdown-menu">
+	                            <li><a  target="_self">节点1</a></li>
+	                            <li><a  target="_self">节点2</a></li>
+	                            <li><a  target="_self">节点3</a></li>
+	                            <li><a  target="_self">节点4</a></li>
+	                            <li><a  target="_self">节点5</a></li>
+	                            <li><a  target="_self">节点6</a></li>
+	                            <li><a  target="_self">节点7</a></li>
+	                            <li><a  target="_self">总览</a></li>
+	                        </ul>
+	                    </div>
+						<div class="col-sm-12">
+				             <div style="height:625px" id="echarts-map1-chart"></div>
+				         </div>
+			       </div>
+				</div>
+				<div class="col-2">
+				<div>
+					<div class="col-title-r">
+			  			<label style="float: left;color: white;">安全评分</label>
+			  		</div>
+					<div class="mapside">
+		               <table class="table table-stripped toggle-arrow-tiny" data-page-size="8">
+		                   <thead>
+		                   <tr>
+		                       <th>节点名</th>
+		                       <th>威胁类型</th>
+		                       <th>IP</th>
+		                   </tr>
+		                   </thead>
+		                   <tbody id="mainthreat">
+		                   </tbody>
+		               </table>
+		           </div>
+		        </div>
+		        <div>
+					<div class="col-title-r">
+			  			<label style="float: left;color: white;">安全评分</label>
+			  		</div>
+					<div class="mapside">
+		               <table class="table table-stripped toggle-arrow-tiny" data-page-size="8">
+		                   <thead>
+		                   <tr>
+		                       <th>节点名</th>
+		                       <th>威胁类型</th>
+		                       <th>IP</th>
+		                   </tr>
+		                   </thead>
+		                   <tbody id="mainthreat">
+		                   </tbody>
+		               </table>
+		           </div>
+		        </div>
+			</div>
+			</div>
+		</div>
+	</div>
+	<!-- 详细信息 -->
+	<div class="row">
+	<!-- 各节点威胁数量开始 -->
+		<div class="col-sm-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>威胁数量</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row-in">
+                        <div class="col-sm-12">
+                            <div style="height:255px" id="threatnumchart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 各节点威胁数量结束 -->
+        <!-- 各节点突出威胁类型和ip开始 -->
+		<div class="col-sm-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>威胁数量</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="headflows">
+                        <table class="table table-stripped toggle-arrow-tiny" data-page-size="8">
+                            <colgroup>
+					            <col width="30%">
+					            <col width="30%">
+					            <col width="30%">
+					        </colgroup>
+                            <thead>
+                            <tr>
+                                <th>节点名</th>
+                                <th>威胁类型</th>
+                                <th>IP</th>
+                            </tr>
+                            </thead>
+                         </table>
+                    </div>
+                    <div class="tableflows">
+                         <table class="table table-stripped toggle-arrow-tiny" data-page-size="8">
+                            <colgroup>
+					            <col width="30%">
+					            <col width="30%">
+					            <col width="30%">
+					        </colgroup>
+                            <tbody id="mainthreat">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<!-- 各节点突出威胁类型和ip结束 -->
+	</div>
+	<div class='row'>
+		<!-- 	各节点流量峰值及IP开始 -->
+		<div class="col-sm-12">
+			<div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>威胁数量</h5>
+                </div>
+                <div class="ibox-content">
+                </div>
+            </div>
+		</div>
+		<!-- 	各节点流量峰值及IP结束 -->
+	</div>
+	<div class='row'>
+		<!-- 	各节点协议趋势图 -->
+		<div class="col-sm-12">
+			<div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>威胁数量</h5>
+                </div>
+                <div class="ibox-content">
+                	<div class="row-in">
+                        <div class="col-sm-12">
+                            <div style="height:255px" id="protocolchart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+		<!-- 	各节点协议趋势图 -->
+	</div>
+</div>
+<script src="js/map/jquery.min.js-v=2.1.4"></script>
+<script src="js/map/echarts.js"></script>
+<script src="js/map/world.js"></script>
+<script src="js/bootstrap.min.js-v=3.3.5"></script>
+<script src="js/content.min.js-v=1.0.0"></script>
+<script src="myjs/globalpage.js"></script>
+<script type="text/javascript">
+	
+</script>
+</body>
+</html>
